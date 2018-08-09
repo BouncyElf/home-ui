@@ -52,7 +52,11 @@ const data = {
 	},
 	methods: {
 		goto(uri) {
-			window.location.href="#/"+uri;
+			if (uri === '' || uri === undefined) {
+				window.location.href="#/";
+				return false;
+			}
+			window.location.href="#/"+uri+"/0";
 		},
 		changeBackground(key) {
 			console.log('nav key now is', key);

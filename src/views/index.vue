@@ -40,6 +40,9 @@ export default {
 				type:'info'
 			});
 		}
+	},
+	mounted: function() {
+		window.document.title = 'Home - BouncyElf\'s Personal Website.'
 	}
 }
 </script>

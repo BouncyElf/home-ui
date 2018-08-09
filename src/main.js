@@ -7,11 +7,13 @@ import store from './store';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import ArticleList from './components/list.vue';
+import ArticleContent from './components/article.vue';
 
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI, axios, VueAxios);
 Vue.component('article-list', ArticleList);
+Vue.component('article-content', ArticleContent);
 Vue.prototype.$ajax = axios;
 
 new Vue({
