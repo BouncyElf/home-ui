@@ -3,7 +3,7 @@
 		<el-header class="article-info">
 			<el-row>{{ article.title }}</el-row>
 			<el-breadcrumb separator="/" class="article-tag">
-				<el-breadcrumb-item v-for="tag in article.tags"><a @click="tag_search(tag)"><el-tag>{{ tag }}</el-tag></a></el-breadcrumb-item>
+				<el-breadcrumb-item v-for="tag in article.tags"><a @click="tag_search(tag)"><el-tag>{{ tag_label(tag) }}</el-tag></a></el-breadcrumb-item>
 			</el-breadcrumb>
 		</el-header>
 		<el-main class="article-content">
@@ -22,6 +22,9 @@ export default {
 	methods: {
 		tag_search(tag) {
 			this.$emit('tag_search', tag);
+		},
+		tag_label(tag) {
+			return tag.substring(0,1).toUpperCase() + tag.substring(1).toLowerCase();
 		}
 	}
 }

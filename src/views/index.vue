@@ -6,7 +6,7 @@
 		<el-row class="bio">
 			<p class="name">BouncyElf</p>
 			<el-breadcrumb separator="/">
-				<el-breadcrumb-item v-for="b in bios"><a @click="tag_search(b.tag)"><el-tag>{{ b.label }}</el-tag></a></el-breadcrumb-item>
+				<el-breadcrumb-item v-for="b in bios"><a @click="tag_search(b)"><el-tag>{{ tag_label(b) }}</el-tag></a></el-breadcrumb-item>
 			</el-breadcrumb>
 		</el-row>
 	</el-row>
@@ -16,20 +16,7 @@
 export default {
 	data() {
 		return {
-			bios:[
-				{
-					label:'Vim',
-					tag:'vim'
-				},
-				{
-					label:'Golang',
-					tag:'golang'
-				},
-				{
-					label:'Vue',
-					tag:'vue'
-				}
-			]
+			bios:[]
 		}
 	},
 	methods: {
@@ -39,10 +26,22 @@ export default {
 				message: '搜索' + tag,
 				type:'info'
 			});
+		},
+		tag_label(tag) {
+			return tag.substring(0,1).toUpperCase() + tag.substring(1).toLowerCase();
+		},
+		get_bio() {
+			let that = this;
+			that.bios = [
+				'vim',
+				'golang',
+				'backend'
+			]
 		}
 	},
 	mounted: function() {
 		window.document.title = 'Home - BouncyElf\'s Personal Website.'
+		this.get_bio();
 	}
 }
 </script>
