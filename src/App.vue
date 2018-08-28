@@ -42,7 +42,7 @@ const color_table = [
 	'rgba(208, 239, 181, 0.1)',
 	'rgba(255, 246, 246, 0.1)'
 ];
-const data = {
+export default {
 	data() {
 		return {
 			main_background: {
@@ -65,8 +65,7 @@ const data = {
 			}
 		}
 	}
-}
-export default data;
+};
 </script>
 
 <style>

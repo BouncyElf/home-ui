@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import Qs from 'qs';
+
 export default {
 	data() {
 		return {
@@ -73,20 +75,38 @@ export default {
 				message:'reload article',
 				type:'info'
 			});
-			this.article = {
-				id: that.article_id,
-				title: '假装有个文章标题',
-				content: '阿克苏的骄傲立刻觉得你俩额' +
-				'U币放你离开手机电脑才俩USB地方；'+
-				'卡就是你的吃俩技能的分配；按时吃'+
-				'欧安；的付出呢；啊速度传播阿里算法来的素材'+
-				'不良爱神的箭部分六十多分别我路段收费比例SDF',
-				tags:[
-					that.type,
-					'live',
-					'ok'
-				]
-			};
+			let article_api = that.$url_prefix + '/api/article/get';
+			console.log("in article");
+			console.log(that.$api_list);
+			that.$ajax.post(
+				article_api,
+				Qs.stringify({
+					article_id:that.article_id
+				})
+			).then(function(res) {
+				if (res.data.error_msg !== undefined && res.data.error_msg !== '') {
+					console.log('错误的 res ', res);
+					that.$message({
+						message:res.data.error_msg,
+						type:'error'
+					});
+					return false;
+				}
+				console.log(res);
+				let data = res.data.data;
+				that.article = {
+					id: data.ID,
+					title: data.Title,
+					content: data.Content,
+					tags:data.Tag.split(';')
+				}
+			}).catch(function(res) {
+				console.log('错误的 res ', res);
+				that.$message({
+					message:res,
+					type:'error'
+				});
+			});
 		},
 		tag_search(tag) {
 			console.log(tag);

@@ -16,6 +16,17 @@ Vue.component('article-list', ArticleList);
 Vue.component('article-content', ArticleContent);
 Vue.prototype.$ajax = axios;
 
+var debugMode = 'debug';
+
+Vue.prototype.$debugMode = debugMode;
+Vue.prototype.$api_list = {};
+
+if (debugMode === 'debug') {
+	Vue.prototype.$url_prefix = '/debug';
+} else {
+	Vue.prototype.$url_prefix = '';
+}
+
 new Vue({
 	router,
 	store,
