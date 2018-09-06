@@ -77,7 +77,6 @@ export default {
 			});
 			let article_api = that.$url_prefix + '/api/article/get';
 			console.log("in article");
-			console.log(that.$api_list);
 			that.$ajax.post(
 				article_api,
 				Qs.stringify({

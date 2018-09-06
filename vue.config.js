@@ -66,10 +66,10 @@ module.exports = {
 		// See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
 		proxy: {
 			'/debug/*': {
-				target: 'https://localhost:8888/',
+				target: 'http://localhost:2333',
 				changeOrigin: true,
 				pathRewrite: {
-					'^/debug':'/'
+					'^/debug':''
 				}
 			}
 
