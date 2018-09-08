@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from './views/index'
+import IndexView from './views/index'
 import ArticleView from './views/article'
+import ConfigView from './views/config'
 
 Vue.use(Router)
 
@@ -10,7 +11,7 @@ const router = new Router({
 		{
 			path: '/',
 			name: 'index',
-			component: Index,
+			component: IndexView,
 			meta: {
 			}
 		},
@@ -18,6 +19,11 @@ const router = new Router({
 			path: '/:tag/:article_id',
 			name: 'article',
 			component: ArticleView
+		},
+		{
+			path: '/config',
+			name: 'config',
+			component: ConfigView
 		}
 	]
 })
