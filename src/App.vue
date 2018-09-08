@@ -24,6 +24,9 @@
  <el-menu-item index="6" @click="goto('live')">
 	 <span>生活</span>
  </el-menu-item>
+ <el-menu-item index="7" @click="goto('music')">
+	 <span>音乐</span>
+ </el-menu-item>
 			</el-menu>
 		</el-aside>
 		<el-main id="main-content" :style="main_background">
@@ -52,6 +55,7 @@ export default {
 	},
 	methods: {
 		goto(uri) {
+			window.scrollTo(0,0);
 			if (uri === '' || uri === undefined) {
 				window.location.href="#/";
 				return false;

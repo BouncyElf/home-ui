@@ -13,7 +13,9 @@
 		<el-main>
 			<el-row v-for="article in list_articles">
 				<el-col :span="18">
-					<a @click="goto_article(article.id)">{{ lenok(article.title) ? article.title : article.title.substring(0, title_limit) + '...' }}</a>
+					<a @click="goto_article(article.id)">
+						{{ lenok(article.title) ? article.title : article.title.substring(0, title_limit) + '...' }}
+					</a>
 				</el-col>
 				<el-col :span="6">
 					<span class="ctime">{{ article.ctime }}</span>
