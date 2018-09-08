@@ -6,7 +6,11 @@
 		<el-row class="bio">
 			<p class="name">BouncyElf</p>
 			<el-breadcrumb separator="/">
-				<el-breadcrumb-item v-for="b in bios"><a @click="tag_search(b)"><el-tag>{{ tag_label(b) }}</el-tag></a></el-breadcrumb-item>
+				<el-breadcrumb-item v-for="b in bios">
+					<a @click="tag_search(b)">
+						<el-tag>{{ tag_label(b) }}</el-tag>
+					</a>
+				</el-breadcrumb-item>
 			</el-breadcrumb>
 		</el-row>
 	</el-row>
@@ -33,15 +37,35 @@ export default {
 		},
 		get_bio() {
 			let that = this;
-			that.bios = [
-				'vim',
-				'golang',
-				'backend'
-			]
+			let bio_api = that.$url_prefix + '/api/info/get';
+			that.$ajax.post(
+				bio_api,
+				Qs.stringify({
+				})
+			).then(function(res) {
+				if (res.data.error_msg !== undefined && res.data.error_msg !== '') {
+					console.log('错误的 res ', res);
+					that.$message({
+						message:res.data.error_msg,
+						type:'error'
+					});
+					return false;
+				}
+				console.log(res);
+				let data = res.data.data;
+				console.log(data);
+				that.bios = data.bios;
+			}).catch(function(res) {
+				console.log('错误的 res ', res);
+				that.$message({
+					message:res,
+					type:'error'
+				});
+			});
 		}
 	},
 	mounted: function() {
-		window.document.title = 'Home - BouncyElf\'s Personal Website.'
+		window.document.title = 'Home - BouncyElf\'s Personal Website'
 		this.get_bio();
 	}
 }
