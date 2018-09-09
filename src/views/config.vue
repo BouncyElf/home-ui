@@ -1,8 +1,17 @@
 <template>
-	<el-container>
-		<el-input v-model="bio" placeholder="请输入新的tag">
-		</el-input>
-		<el-button plain type="primary" @click="update_bio">确定</el-button>
+	<el-container class="config">
+		<el-row>
+			<el-upload
+				drag
+				class="uploader"
+				:name="filename"
+				:action="uploadArticle"
+				:on-success="uploadSuccess"
+				:on-error="uploadError"
+				:on-progress="uploading"
+				:multiple="false">
+			</el-upload>
+		</el-row>
 	</el-container>
 </template>
 
@@ -11,47 +20,53 @@ import Qs from 'qs';
 export default {
 	data() {
 		return {
-			bio:""
+			uploadArticle:'',
+			filename:''
 		}
 	},
 	methods: {
-		update_bio() {
+		uploadSuccess(res) {
 			let that = this;
-			if (that.bio === undefined || that.bio === '') {
+			let code = res.code;
+			if (code === undefined || code !== 0) {
 				that.$message({
-					message:'请输入bio',
-					type:'info'
-				});
-				return false;
-			}
-			let bio_api = that.$url_prefix + '/api/info/update';
-			that.$ajax.post(
-				bio_api,
-				Qs.stringify({
-					type:"add",
-					bio:that.bio
-				})
-			).then(function(res) {
-				if (res.data.error_msg !== undefined && res.data.error_msg !== '') {
-					console.log('错误的 res ', res);
-					that.$message({
-						message:res.data.error_msg,
-						type:'error'
-					});
-					return false;
-				}
-				console.log(res);
-				let data = res.data.data;
-				console.log(data);
-			}).catch(function(res) {
-				console.log('错误的 res ', res);
-				that.$message({
-					message:res,
+					message:'文件上传失败',
 					type:'error'
 				});
+				console.log(res);
+				return false;
+			}
+			that.$message({
+				message:'文件上传成功',
+				type:'success'
 			});
+		},
+		uploadError(err) {
+			let that = this;
+			that.$message({
+				message:'文件上传失败',
+				type:'error'
+			});
+			console.log(err);
+		},
+		uploading(evt) {
+			console.log(evt);
 		}
+	},
+	mounted:function(){
+		let that = this;
+		that.uploadArticle = that.$url_prefix + '/api/article/upload';
+		that.filename='article_file';
 	}
 };
 </script>
 
+<style>
+.config {
+	margin-top:9rem;
+}
+.uploader {
+	margin:0 auto;
+	text-align:center;
+}
+</style>
