@@ -1,6 +1,6 @@
 <template>
 	<el-container class="config">
-		<el-row>
+		<el-row v-if="islogin">
 			<el-upload
 				drag
 				class="uploader"
@@ -12,6 +12,22 @@
 				:multiple="false">
 			</el-upload>
 		</el-row>
+		<el-row v-else>
+			<el-input
+				placeholder="昵称"
+				v-model="username"
+				clearable>
+			</el-input>
+			<el-input
+				placeholder="密码"
+				v-model="password"
+				type="password"
+				clearable>
+			</el-input>
+			<el-button plain
+				@click="login"
+				type="primary">登录</el-button>
+		</el-row>
 	</el-container>
 </template>
 
@@ -21,7 +37,10 @@ export default {
 	data() {
 		return {
 			uploadArticle:'',
-			filename:''
+			filename:'',
+			islogin:false,
+			username:'',
+			password:''
 		}
 	},
 	methods: {
@@ -51,12 +70,59 @@ export default {
 		},
 		uploading(evt) {
 			console.log(evt);
+		},
+		get_login_status() {
+			let that = this;
+			let login_api = that.$url_prefix + '/api/user/islogin';
+			that.$ajax.post(
+				login_api,
+				Qs.stringify({})
+			).then(function(res) {
+				console.log(res);
+				that.islogin = true;
+			}).catch(function(res) {
+				console.log('错误的 res ', res);
+				that.islogin = false;
+			});
+			that.islogin = false;
+		},
+		login() {
+			let that = this;
+			if (that.username === '' || that.password === '') {
+				that.$message({
+					message:'请填写完整用户名和密码',
+					type:'error'
+				});
+				return false;
+			}
+			let login_api = that.$url_prefix + '/api/user/login';
+			that.$ajax.post(
+				login_api,
+				Qs.stringify({
+					username:that.username,
+					password:that.password
+				})
+			).then(function(res) {
+				console.log(res);
+				that.islogin = true;
+				that.$message({
+					message:'登录成功',
+					type:'success'
+				});
+			}).catch(function(res) {
+				console.log('错误的 res ', res);
+				that.$message({
+					message:res,
+					type:'error'
+				});
+			});
 		}
 	},
 	mounted:function(){
 		let that = this;
 		that.uploadArticle = that.$url_prefix + '/api/article/upload';
 		that.filename='article_file';
+		that.get_login_status();
 	}
 };
 </script>

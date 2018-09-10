@@ -58,14 +58,6 @@ export default {
 					type:that.type
 				})
 			).then(function(res) {
-				if (res.data.error_msg !== undefined && res.data.error_msg !== '') {
-					console.log('错误的 res ', res);
-					that.$message({
-						message:res.data.error_msg,
-						type:'error'
-					});
-					return false;
-				}
 				console.log(res);
 				let data = res.data.data;
 				that.list_articles = data.article_list;
@@ -87,14 +79,6 @@ export default {
 					article_id:that.article_id
 				})
 			).then(function(res) {
-				if (res.data.error_msg !== undefined && res.data.error_msg !== '') {
-					console.log('错误的 res ', res);
-					that.$message({
-						message:res.data.error_msg,
-						type:'error'
-					});
-					return false;
-				}
 				console.log(res);
 				let data = res.data.data;
 				that.article = {
