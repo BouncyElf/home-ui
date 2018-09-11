@@ -7,3 +7,9 @@ Not finish yet.
 - Vue
 - ElementUi
 - Axios
+
+## TODO
+- search tag
+- wait anime
+- mobile ui
+- list page pagination

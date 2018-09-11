@@ -49,6 +49,7 @@ export default {
 			return false;
 		},
 		reload_list() {
+			// TODO: page
 			let that = this;
 			let list_api = that.$url_prefix + '/api/article/list';
 			console.log("in article");
@@ -70,6 +71,7 @@ export default {
 			});
 		},
 		reload_article() {
+			// TODO: markdown parser
 			let that = this;
 			let article_api = that.$url_prefix + '/api/article/get';
 			console.log("in article");
