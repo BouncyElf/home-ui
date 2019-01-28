@@ -8,10 +8,11 @@
 			<el-breadcrumb separator="/">
 				<el-breadcrumb-item v-for="b in bios">
 					<a @click="tag_search(b)">
-						<el-tag>{{ tag_label(b) }}</el-tag>
+						<el-tag>{{ b }}</el-tag>
 					</a>
 				</el-breadcrumb-item>
 			</el-breadcrumb>
+			<p class="value">{{ value }}</p>
 		</el-row>
 	</el-row>
 </template>
@@ -21,7 +22,8 @@ import Qs from 'qs';
 export default {
 	data() {
 		return {
-			bios:[]
+			bios:[],
+			value:'',
 		}
 	},
 	methods: {
@@ -33,24 +35,14 @@ export default {
 				type:'info'
 			});
 		},
-		tag_label(tag) {
-			return tag.substring(0,1).toUpperCase() + tag.substring(1).toLowerCase();
-		},
-		get_bio() {
-			let that = this;
-			let bio_api = that.$url_prefix + '/api/info/get';
-			that.$ajax.post(
-				bio_api,
-				Qs.stringify({
-				})
-			).then(function(res) {
+		get_info() {
+			let bio_api = this.$url_prefix + '/api/info';
+			this.$ajax.get(bio_api).then((res) => {
 				console.log(res);
-				let data = res.data.data;
-				console.log(data);
-				that.bios = data.bios;
-			}).catch(function(res) {
+				this.bios = res.data.data;
+			}).catch((res) => {
 				console.log('错误的 res ', res);
-				that.$message({
+				this.$message({
 					message:res,
 					type:'error'
 				});
@@ -59,7 +51,7 @@ export default {
 	},
 	mounted: function() {
 		window.document.title = 'Home - BouncyElf\'s Personal Website'
-		this.get_bio();
+		this.get_info();
 	}
 }
 </script>

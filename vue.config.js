@@ -11,7 +11,6 @@ module.exports = {
 	// where to output built files
 	// 打包后的输出目录
 	outputDir: 'dist',
-
 	// whether to use eslint-loader for lint on save.
 	// 保存时是不是用eslint-loader 来lint 代码
 	lintOnSave: false,
@@ -21,7 +20,6 @@ module.exports = {
 	// webpack 配置~
 	chainWebpack: () => {},
 	configureWebpack: () => {},
-
 
 	// generate sourceMap for production build?
 	// 生产环境的sourceMap 要不要？
@@ -39,31 +37,25 @@ module.exports = {
 		// sass-loader, use { sass: { ... } }
 		loaderOptions: {},
 
-		// Enable CSS modules for all css / pre-processor files.
-		// This option does not affect *.vue files.
-		// 用不用 css Modules 啊？
 		modules: false
 	},
 
 	// use thread-loader for babel & TS in production build
 	// enabled by default if the machine has more than 1 cores
-	// 使用多线程否？
 	parallel: require('os').cpus().length > 1,
 
 	// options for the PWA plugin.
 	// see https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
-	// pwa 相关
 	pwa: {},
 
 	// configure webpack-dev-server behavior
 	// Webpack dev server
 	devServer: {
 		open: process.platform === 'darwin',
-		host: '0.0.0.0',
-		port: 8088,
+		host:'0.0.0.0',
+		port: 8000,
 		https: false,
 		hotOnly: false,
-		// See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
 		proxy: {
 			'/debug/*': {
 				target: 'http://localhost:2333',
@@ -72,7 +64,6 @@ module.exports = {
 					'^/debug':''
 				}
 			}
-
 		},
 		before: app => {}
 	},
