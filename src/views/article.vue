@@ -13,7 +13,6 @@
 
 <script>
 import Qs from 'qs';
-
 export default {
 	data() {
 		return {
@@ -27,8 +26,7 @@ export default {
 	},
 	methods: {
 		goto_article(id) {
-			let that = this;
-			window.location.href='#/'+that.type+'/'+id;
+			window.location.href='#/'+this.type+'/'+id;
 		},
 		change_title(title) {
 			if (title === undefined || title === null) {
@@ -38,33 +36,30 @@ export default {
 			window.document.title = title+' - BouncyElf\'s Personal Website';
 		},
 		reload_data() {
-			let that = this;
-			if (that.article_id === undefined || that.article_id === '0') {
-				that.mode = 'list';
-				that.reload_list();
+			if (this.article_id === undefined || this.article_id === '0') {
+				this.mode = 'list';
+				this.reload_list();
 				return false;
 			}
-			that.mode = 'article';
-			that.reload_article();
+			this.mode = 'article';
+			this.reload_article();
 			return false;
 		},
 		reload_list() {
-			// TODO: page
-			let that = this;
-			let list_api = that.$url_prefix + '/api/article/list';
+			// TODO: pagination
+			let list_api = this.$url_prefix + '/api/article/list';
 			console.log("in article");
-			that.$ajax.post(
+			this.$ajax.post(
 				list_api,
 				Qs.stringify({
-					type:that.type
+					type:this.type
 				})
-			).then(function(res) {
+			).then((res) => {
 				console.log(res);
-				let data = res.data.data;
-				that.list_articles = data.article_list;
-			}).catch(function(res) {
+				this.list_articles = res.data.data;
+			}).catch((res) => {
 				console.log('错误的 res ', res);
-				that.$message({
+				this.$message({
 					message:res,
 					type:'error'
 				});
@@ -72,26 +67,25 @@ export default {
 		},
 		reload_article() {
 			// TODO: markdown parser
-			let that = this;
-			let article_api = that.$url_prefix + '/api/article/get';
+			let article_api = this.$url_prefix + '/api/article/detail';
 			console.log("in article");
-			that.$ajax.post(
+			this.$ajax.post(
 				article_api,
 				Qs.stringify({
-					article_id:that.article_id
+					article_id:this.article_id
 				})
-			).then(function(res) {
+			).then((res) => {
 				console.log(res);
 				let data = res.data.data;
-				that.article = {
+				this.article = {
 					id: data.ID,
 					title: data.Title,
 					content: data.Content,
 					tags:data.Tag.split(';')
 				}
-			}).catch(function(res) {
+			}).catch((res) => {
 				console.log('错误的 res ', res);
-				that.$message({
+				this.$message({
 					message:res,
 					type:'error'
 				});

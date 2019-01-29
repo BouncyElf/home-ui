@@ -45,24 +45,22 @@ export default {
 	},
 	methods: {
 		uploadSuccess(res) {
-			let that = this;
 			let code = res.code;
 			if (code === undefined || code !== 0) {
-				that.$message({
+				this.$message({
 					message:'文件上传失败',
 					type:'error'
 				});
 				console.log(res);
 				return false;
 			}
-			that.$message({
+			this.$message({
 				message:'文件上传成功',
 				type:'success'
 			});
 		},
 		uploadError(err) {
-			let that = this;
-			that.$message({
+			this.$message({
 				message:'文件上传失败',
 				type:'error'
 			});
@@ -72,46 +70,44 @@ export default {
 			console.log(evt);
 		},
 		get_login_status() {
-			let that = this;
-			let login_api = that.$url_prefix + '/api/user/islogin';
-			that.$ajax.post(
+			let login_api = this.$url_prefix + '/api/user/islogin';
+			this.$ajax.post(
 				login_api,
 				Qs.stringify({})
-			).then(function(res) {
+			).then((res) => {
 				console.log(res);
-				that.islogin = true;
-			}).catch(function(res) {
+				this.islogin = true;
+			}).catch((res) => {
 				console.log('错误的 res ', res);
-				that.islogin = false;
+				this.islogin = false;
 			});
-			that.islogin = false;
+			this.islogin = false;
 		},
 		login() {
-			let that = this;
-			if (that.username === '' || that.password === '') {
-				that.$message({
+			if (this.username === '' || this.password === '') {
+				this.$message({
 					message:'请填写完整用户名和密码',
 					type:'error'
 				});
 				return false;
 			}
-			let login_api = that.$url_prefix + '/api/user/login';
-			that.$ajax.post(
+			let login_api = this.$url_prefix + '/api/user/login';
+			this.$ajax.post(
 				login_api,
 				Qs.stringify({
-					username:that.username,
-					password:that.password
+					username:this.username,
+					password:this.password
 				})
-			).then(function(res) {
+			).then((res) => {
 				console.log(res);
-				that.islogin = true;
-				that.$message({
+				this.islogin = true;
+				this.$message({
 					message:'登录成功',
 					type:'success'
 				});
-			}).catch(function(res) {
+			}).catch((res) => {
 				console.log('错误的 res ', res);
-				that.$message({
+				this.$message({
 					message:res,
 					type:'error'
 				});
@@ -119,10 +115,9 @@ export default {
 		}
 	},
 	mounted:function(){
-		let that = this;
-		that.uploadArticle = that.$url_prefix + '/api/article/upload';
-		that.filename='article_file';
-		that.get_login_status();
+		this.uploadArticle = this.$url_prefix + '/api/article/upload';
+		this.filename='article_file';
+		this.get_login_status();
 	}
 };
 </script>
