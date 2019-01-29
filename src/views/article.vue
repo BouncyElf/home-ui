@@ -76,10 +76,10 @@ export default {
 				console.log(res);
 				let data = res.data.data;
 				this.article = {
-					id: data.ID,
-					title: data.Title,
-					content: data.Content,
-					tags:data.Tag.split(';')
+					id: data.id,
+					title: data.title,
+					content: data.content,
+					tags:data.tag.split(';')
 				}
 			}).catch((res) => {
 				console.log('错误的 res ', res);
