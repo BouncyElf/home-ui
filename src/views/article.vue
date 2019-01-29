@@ -36,7 +36,7 @@ export default {
 			window.document.title = title+' - BouncyElf\'s Personal Website';
 		},
 		reload_data() {
-			if (this.article_id === undefined || this.article_id === '0') {
+			if (this.article_id === undefined || this.article_id == 0) {
 				this.mode = 'list';
 				this.reload_list();
 				return false;
@@ -48,7 +48,6 @@ export default {
 		reload_list() {
 			// TODO: pagination
 			let list_api = this.$url_prefix + '/api/article/list';
-			console.log("in article");
 			this.$ajax.post(
 				list_api,
 				Qs.stringify({
@@ -68,7 +67,6 @@ export default {
 		reload_article() {
 			// TODO: markdown parser
 			let article_api = this.$url_prefix + '/api/article/detail';
-			console.log("in article");
 			this.$ajax.post(
 				article_api,
 				Qs.stringify({
@@ -92,7 +90,6 @@ export default {
 			});
 		},
 		tag_search(tag) {
-			console.log(tag);
 			this.$message({
 				message: '搜索' + tag,
 				type:'info'
@@ -102,6 +99,9 @@ export default {
 	watch: {
 		'$route' (to, from) {
 			this.type = this.$route.params.tag;
+			if (this.$route.params.article_id === undefined) {
+				this.$route.params.article_id = 0;
+			}
 			this.article_id = this.$route.params.article_id;
 			this.change_title(this.type);
 			this.reload_data();
@@ -109,6 +109,9 @@ export default {
 	},
 	mounted:function() {
 		this.type = this.$route.params.tag;
+		if (this.$route.params.article_id === undefined) {
+			this.$route.params.article_id = 0;
+		}
 		this.article_id = this.$route.params.article_id;
 		this.change_title(this.type);
 		this.reload_data();

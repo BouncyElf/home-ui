@@ -51,7 +51,6 @@ export default {
 					message:'文件上传失败',
 					type:'error'
 				});
-				console.log(res);
 				return false;
 			}
 			this.$message({

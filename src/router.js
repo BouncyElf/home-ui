@@ -16,8 +16,13 @@ const router = new Router({
 			}
 		},
 		{
+			path: '/:tag',
+			name: 'article_list',
+			component: ArticleView
+		},
+		{
 			path: '/:tag/:article_id',
-			name: 'article',
+			name: 'article_detail',
 			component: ArticleView
 		},
 		{

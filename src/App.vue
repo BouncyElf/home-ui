@@ -60,7 +60,7 @@ export default {
 				window.location.href="#/";
 				return false;
 			}
-			window.location.href="#/"+uri+"/0";
+			window.location.href="#/"+uri;
 		},
 		changeBackground(key) {
 			console.log('nav key now is', key);

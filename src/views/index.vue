@@ -29,7 +29,6 @@ export default {
 	methods: {
 		tag_search(tag) {
 			// TODO: search tag
-			console.log(tag);
 			this.$message({
 				message: '搜索' + tag,
 				type:'info'
